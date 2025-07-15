@@ -1,5 +1,5 @@
 import pandas as pd
-import matplotlib
+import matplotlib.pyplot as plt
 
 file_path = "C:/Users/USER/Desktop/SPX.csv"
 
@@ -47,7 +47,8 @@ print("polished_price_list: ", polished_price_list)
 stock_price_g = []
 inv_g = []
 Bankroll = 100
-
+volatility_strategy_bankroll_g = [100]
+buy_and_hold_strategy_bankroll_g = []
 
 def profitability_testing_function(Bankroll: int):
     for i in polished_price_list:
@@ -57,6 +58,7 @@ def profitability_testing_function(Bankroll: int):
             Bankroll -= 1
             print("111iii: ", i)
             print("111Bankroll: ", Bankroll)
+            volatility_strategy_bankroll_g.append(Bankroll)
             print("")
         elif len(inv_g) > 0:
             if i <= stock_price_g[- 1] * ratio_drop:
@@ -65,6 +67,7 @@ def profitability_testing_function(Bankroll: int):
                 stock_price_g.append(stock_price_g[- 1] * ratio_drop)
                 print("2222iii: ", i)
                 print("222Bankroll: ", Bankroll)
+                volatility_strategy_bankroll_g.append(Bankroll)
                 print("")
             elif i >= stock_price_g[- 1] * ratio_increase:
                 print("3333iii: ", i)
@@ -74,12 +77,14 @@ def profitability_testing_function(Bankroll: int):
                 del stock_price_g[- 1]
                 del inv_g[- 1]
                 print("333Bankroll: ", Bankroll)
+                volatility_strategy_bankroll_g.append(Bankroll)
                 print("333inv_g: ", inv_g)
                 if len(inv_g) == 0:
                     inv_g.append(1)
                     stock_price_g.append(i)
                     Bankroll -= 1
                 print("3fff33Bankroll: ", Bankroll)
+                volatility_strategy_bankroll_g.append(Bankroll)
                 print("3fff33inv_g: ", inv_g)
                 print("")
 
@@ -89,3 +94,22 @@ def profitability_testing_function(Bankroll: int):
 Bankroll = profitability_testing_function(Bankroll)
 print("Bankroll: ", Bankroll)
 
+def graph_plotting_function():
+    print("plotting begins")
+    plt.figure(figsize=(10, 5), dpi=350)  # High DPI is used for sharpness
+    plt.figure(figsize=(10, 5))
+    plt.plot(list(range(1, len(volatility_strategy_bankroll_g) + 1)), volatility_strategy_bankroll_g, marker='o', linestyle='-', color='red', label='Bankroll', linewidth=1, alpha=1, antialiased=False)
+    #plt.plot(list(range(1, len(polished_price_list) + 1)), polished_price_list, marker='o', linestyle='-', color='blue', label='Bankroll', linewidth=1, alpha=1, antialiased=False)
+    #plt.plot(list(range(1, len(buy_and_hold_strategy_bankroll_g) + 1)), buy_and_hold_strategy_bankroll_g, marker='o', linestyle='-', color='blue', label='Bankroll', linewidth=1, alpha=1, antialiased=False)
+
+    plt.title('Bankroll vs. Number of Games')
+    plt.xlabel('Number of Games')
+    plt.ylabel('Bankroll ($)')
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+    print("plotting complete")
+
+
+graph_plotting_function()
