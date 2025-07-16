@@ -125,14 +125,14 @@ def graph_plotting_function():
     plt.figure(figsize=(10, 5))
     plt.plot(list(range(1, len(volatility_strategy_bankroll_g) + 1)), volatility_strategy_bankroll_g, marker='o',
              linestyle='-', color='red', label='volatility strategy bankroll', linewidth=1, alpha=1, antialiased=False)
-    # plt.plot(list(range(1, len(polished_price_list) + 1)), polished_price_list, marker='o', linestyle='-', color='blue', label='Bankroll', linewidth=1, alpha=1, antialiased=False)
-    # plt.plot(list(range(1, len(buy_and_hold_strategy_bankroll_g) + 1)), buy_and_hold_strategy_bankroll_g, marker='o', linestyle='-', color='blue', label='buy and hold strategy bankroll', linewidth=1, alpha=1, antialiased=False)
+    plt.plot(list(range(1, len(polished_price_list) + 1)), polished_price_list, marker='o', linestyle='-', color='green', label='Bankroll', linewidth=1, alpha=1, antialiased=False)
+    plt.plot(list(range(1, len(buy_and_hold_strategy_bankroll_g) + 1)), buy_and_hold_strategy_bankroll_g, marker='o', linestyle='-', color='blue', label='buy and hold strategy bankroll', linewidth=1, alpha=1, antialiased=False)
 
     plt.title('Bankroll vs. Number of Games')
     plt.xlabel('Number of Games')
     plt.ylabel('Bankroll ($)')
     plt.grid(True)
-    plt.legend()
+    plt.legend(loc="upper left")
     plt.tight_layout()
     plt.show()
     print("plotting complete")
