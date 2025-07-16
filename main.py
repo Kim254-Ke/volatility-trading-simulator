@@ -19,7 +19,6 @@ close_list = df["Close"].tolist()
 
 all_price_list = open_list + high_list + low_list + close_list
 
-# all_price_list = [1, 3, 2, 3]
 # print(all_price_list)
 polished_price_list = []
 ratio_drop = 0.9
@@ -66,10 +65,6 @@ def profitability_testing_function(Bankroll: int):
             inv_g.append(1)
             stock_price_g.append(i)
             Bankroll -= 1
-            # print("111iii: ", i)
-            # print("111Bankroll: ", Bankroll)
-            # print("1111stock_price_g: ", stock_price_g)
-            # print("1111polished_price_list: ", polished_price_list)
             volatility_strategy_bankroll_g.append(Bankroll)
             print("")
         elif len(inv_g) > 0:
@@ -77,38 +72,25 @@ def profitability_testing_function(Bankroll: int):
                 inv_g.append(inv_g[- 1] * ratio_drop)
                 Bankroll -= inv_g[- 1] * ratio_drop
                 stock_price_g.append(stock_price_g[- 1] * ratio_drop)
-                # print("2222iii: ", i)
-                # print("222Bankroll: ", Bankroll)
                 volatility_strategy_bankroll_g.append(Bankroll)
                 print("")
                 if i < stock_price_g[- 1] * ratio_drop and total_count < len(polished_price_list):
                     polished_price_list[total_count] = i
 
             elif i >= stock_price_g[- 1] * ratio_increase:
-                # print("3333iii: ", i)
-                # print("333111inv_g: ", inv_g)
-                # print("333stock_price_g: ", stock_price_g)
-                # print("3333polished_price_list: ", polished_price_list)
                 Bankroll += inv_g[- 1] * ratio_increase
                 stock_price_g.append(stock_price_g[- 1] * ratio_increase)
                 del stock_price_g[- 1]
                 del inv_g[- 1]
-                # print("333Bankroll: ", Bankroll)
-                # print("333stock_price_g: ", stock_price_g)
                 volatility_strategy_bankroll_g.append(Bankroll)
-                # print("333inv_g: ", inv_g)
                 if len(inv_g) == 0:
                     inv_g.append(1)
                     stock_price_g.append(i)
                     Bankroll -= 1
                     volatility_strategy_bankroll_g.append(Bankroll)
-                # print("3fff33Bankroll: ", Bankroll)
-                # print("3333stock_price_g: ", stock_price_g)
-                # print("3fff33inv_g: ", inv_g)
                 print("")
                 if i > stock_price_g[- 1] * ratio_drop and total_count < len(polished_price_list):
                     polished_price_list[total_count] = i
-                    # print("333eeepolished_price_list: ", polished_price_list)
 
     return [Bankroll, buy_and_hold_strategy_bankroll_g]
 
